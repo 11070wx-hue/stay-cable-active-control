@@ -1,0 +1,19 @@
+name: Documentation improvement
+description: Improve equations, assumptions, examples, or setup instructions.
+title: "[Docs]: "
+labels: ["documentation"]
+body:
+  - type: textarea
+    id: location
+    attributes:
+      label: Location
+      description: Which file or section needs work?
+    validations:
+      required: true
+  - type: textarea
+    id: improvement
+    attributes:
+      label: Suggested improvement
+      description: What should be clarified, corrected, or added?
+    validations:
+      required: true

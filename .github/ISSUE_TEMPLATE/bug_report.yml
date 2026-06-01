@@ -1,0 +1,40 @@
+name: Bug report
+description: Report incorrect behavior or a reproducibility failure.
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: textarea
+    id: summary
+    attributes:
+      label: Summary
+      description: What failed, and why does it look incorrect?
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: Include commands, scripts, parameters, and environment details.
+      placeholder: |
+        1. python -m pip install -e ".[dev]"
+        2. python examples/python/run_open_loop_demo.py
+        3. ...
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+    validations:
+      required: true
+  - type: textarea
+    id: observed
+    attributes:
+      label: Observed behavior
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Python, MATLAB, or OS version
+      placeholder: "Python 3.11 on Windows 11"

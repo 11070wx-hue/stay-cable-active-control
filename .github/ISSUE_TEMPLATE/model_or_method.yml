@@ -1,0 +1,26 @@
+name: Model or method proposal
+description: Propose a model, controller, estimator, or benchmark extension.
+title: "[Model]: "
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: motivation
+    attributes:
+      label: Motivation
+      description: What research or reproducibility gap does this address?
+    validations:
+      required: true
+  - type: textarea
+    id: proposed-method
+    attributes:
+      label: Proposed method
+      description: Include equations, references, assumptions, or pseudocode.
+    validations:
+      required: true
+  - type: textarea
+    id: validation
+    attributes:
+      label: Validation plan
+      description: How should this be tested or benchmarked?
+    validations:
+      required: true

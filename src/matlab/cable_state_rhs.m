@@ -1,0 +1,49 @@
+function dx = cable_state_rhs(t, x, p, u)
+%CABLE_STATE_RHS Reduced single-mode stay-cable model.
+%
+% State x = [q; qdot]. Parameters are supplied in a struct with fields:
+% omega, damping_ratio, quadratic_stiffness, cubic_stiffness,
+% parametric_stiffness, excitation_amplitude, excitation_frequency, and
+% actuator_gain. Missing fields use the same defaults as the Python package.
+
+if nargin < 4
+    u = 0.0;
+end
+
+p = fill_defaults(p);
+q = x(1);
+qdot = x(2);
+
+harmonic_force = p.excitation_amplitude * cos(p.excitation_frequency * t);
+parametric_term = p.parametric_stiffness * cos(p.excitation_frequency * t) * q;
+qddot = ...
+    -2.0 * p.damping_ratio * p.omega * qdot ...
+    - p.omega^2 * q ...
+    - p.quadratic_stiffness * q^2 ...
+    - p.cubic_stiffness * q^3 ...
+    + parametric_term ...
+    + harmonic_force ...
+    + p.actuator_gain * u;
+
+dx = [qdot; qddot];
+end
+
+function p = fill_defaults(p)
+defaults = struct( ...
+    'omega', 1.6425, ...
+    'damping_ratio', 0.001, ...
+    'quadratic_stiffness', 0.0, ...
+    'cubic_stiffness', 0.05, ...
+    'parametric_stiffness', 0.0, ...
+    'excitation_amplitude', 0.02, ...
+    'excitation_frequency', 1.6425, ...
+    'actuator_gain', 1.0);
+
+fields = fieldnames(defaults);
+for i = 1:numel(fields)
+    name = fields{i};
+    if ~isfield(p, name)
+        p.(name) = defaults.(name);
+    end
+end
+end

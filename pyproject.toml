@@ -1,0 +1,39 @@
+[build-system]
+requires = ["setuptools>=61", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "stay-cable-active-control"
+version = "0.1.0"
+description = "Reduced-order stay-cable vibration models and active-control benchmarks."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "Xiang Wang" }]
+keywords = [
+  "active control",
+  "bridge engineering",
+  "model predictive control",
+  "structural dynamics",
+  "vibration control",
+]
+dependencies = [
+  "matplotlib>=3.7",
+  "numpy>=1.24",
+  "scipy>=1.10",
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=8.0",
+  "ruff>=0.4",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100

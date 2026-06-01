@@ -1,5 +1,7 @@
 # Results
 
-This directory is reserved for reproducible benchmark outputs, figures, and small result summaries.
+Generated benchmark outputs should be written here by examples or notebooks.
 
-Large binary files, raw experimental data, or generated files that can be reproduced from scripts should generally not be committed directly. Use this directory mainly for lightweight documentation of representative results.
+The repository keeps only small, reproducible summaries by default. Large plots,
+raw simulation sweeps, and unpublished experimental data should stay outside the
+repository unless they are needed for a reviewed release.

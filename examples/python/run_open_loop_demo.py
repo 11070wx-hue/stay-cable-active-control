@@ -1,45 +1,35 @@
-"""Open-loop simulation demo for the reduced stay-cable model."""
+"""Run a reproducible open-loop and LQR stay-cable benchmark."""
 
 from pathlib import Path
-import sys
 
-import matplotlib.pyplot as plt
-from scipy.integrate import solve_ivp
+import numpy as np
 
-ROOT = Path(__file__).resolve().parents[2]
-sys.path.insert(0, str(ROOT / "src" / "python"))
+from stay_cable_control import lqr_benchmark, open_loop_benchmark, rms_displacement
+from stay_cable_control.simulation import peak_displacement
 
-from cable_model import CableParameters, cable_state_rhs
+
+def write_summary(output_path: Path, rows: list[tuple[str, float, float]]) -> None:
+    """Write a small CSV summary that can be compared across runs."""
+
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    lines = ["case,rms_displacement,peak_displacement"]
+    lines.extend(f"{name},{rms:.8f},{peak:.8f}" for name, rms, peak in rows)
+    output_path.write_text("\n".join(lines) + "\n", encoding="utf-8")
 
 
 def main() -> None:
-    """Run a reproducible open-loop simulation."""
+    open_loop = open_loop_benchmark(duration=20.0)
+    controlled = lqr_benchmark(duration=20.0)
+    rows = [
+        ("open_loop", rms_displacement(open_loop), peak_displacement(open_loop)),
+        ("lqr_controlled", rms_displacement(controlled), peak_displacement(controlled)),
+    ]
+    write_summary(Path("results/open_loop_summary.csv"), rows)
 
-    params = CableParameters()
-    t_span = (0.0, 120.0)
-    t_eval = [0.05 * i for i in range(int(t_span[1] / 0.05) + 1)]
-    initial_state = [0.02, 0.0]
-
-    solution = solve_ivp(
-        fun=lambda t, x: cable_state_rhs(t, x, params),
-        t_span=t_span,
-        y0=initial_state,
-        t_eval=t_eval,
-        rtol=1e-8,
-        atol=1e-10,
-    )
-
-    if not solution.success:
-        raise RuntimeError(solution.message)
-
-    plt.figure()
-    plt.plot(solution.t, solution.y[0])
-    plt.xlabel("Time (s)")
-    plt.ylabel("Modal displacement")
-    plt.title("Open-loop stay-cable response")
-    plt.grid(True)
-    plt.tight_layout()
-    plt.show()
+    for name, rms, peak in rows:
+        print(f"{name}: rms={rms:.6f}, peak={peak:.6f}")
+    improvement = 1.0 - rows[1][1] / rows[0][1]
+    print(f"rms_reduction={100.0 * np.clip(improvement, -1.0, 1.0):.2f}%")
 
 
 if __name__ == "__main__":

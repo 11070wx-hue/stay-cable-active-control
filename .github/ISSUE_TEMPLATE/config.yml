@@ -1,0 +1,5 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Security policy
+    url: https://github.com/11070wx-hue/stay-cable-active-control/blob/main/SECURITY.md
+    about: Please read this before reporting sensitive security concerns.
