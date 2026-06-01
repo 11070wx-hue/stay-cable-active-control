@@ -1,40 +1,50 @@
 # Roadmap
 
-This roadmap describes the intended development path for the repository.
+This roadmap tracks real maintenance work for the public repository. Dates are
+targets and may shift as research priorities change.
 
-## Stage 1: Reproducible baseline
+## 0.1 - Public reproducible baseline
 
-- Maintain a clear repository structure.
-- Provide small MATLAB and Python examples.
-- Document all model assumptions and units.
-- Keep dependencies minimal.
+Status: in progress.
 
-## Stage 2: Baseline active control
+- [x] Public MIT-licensed repository.
+- [x] Installable Python package.
+- [x] Reduced nonlinear single-mode model.
+- [x] LQR baseline example.
+- [x] MATLAB open-loop parity example.
+- [x] Pytest regression tests.
+- [x] GitHub Actions CI for Python.
+- [ ] First tagged release after CI is green on GitHub.
 
-- Add an LQR controller for the reduced cable model.
-- Add controller comparison metrics such as peak displacement, RMS displacement, and maximum control force.
-- Add scripts for open-loop and closed-loop comparison.
+## 0.2 - Constrained control benchmarks
 
-## Stage 3: Constrained MPC
+Target: June-July 2026.
 
-- Add linear MPC examples with input-force constraints.
-- Add control-rate constraints.
-- Compare constrained MPC with unconstrained LQR under identical disturbance cases.
+- Add linear MPC example with actuator saturation.
+- Add constrained MPC benchmark metrics.
+- Document cost functions, constraints, and solver settings.
+- Add tests for controller output dimensions and saturation behavior.
 
-## Stage 4: Output-feedback control
+## 0.3 - Output feedback
 
-- Add Kalman filtering or extended Kalman filtering for partial-state measurement.
-- Couple state estimation with MPC.
-- Study the influence of sensor noise and incomplete measurement.
+Target: July-August 2026.
 
-## Stage 5: Robustness and uncertainty
+- Add Kalman filter and extended Kalman filter examples.
+- Add partial-measurement benchmark cases.
+- Document observability assumptions and measurement noise parameters.
 
-- Add parameter perturbation scripts.
-- Study damping, stiffness, and nonlinear coefficient uncertainty.
-- Build reproducible benchmark cases.
+## 0.4 - Robustness and uncertainty
 
-## Stage 6: Higher-fidelity models
+Target: August-September 2026.
 
-- Extend from single-mode to multimodal reduced models.
-- Prepare interfaces for finite-difference or finite-element data.
-- Prepare experimental-data input templates for future laboratory validation.
+- Add parameter-uncertainty sweeps.
+- Add disturbance benchmark cases.
+- Add result-summary comparison scripts.
+- Document expected failure modes and numerical tolerances.
+
+## Later work
+
+- Nonlinear MPC prototype.
+- Reduced-order multimodal cable model.
+- Time-delay and actuator dynamics.
+- Experimental-data interface for future laboratory validation.

@@ -79,7 +79,7 @@ run('examples/matlab/run_open_loop_demo.m');
 
 - [Model equations](docs/model_equations.md)
 - [Reproducibility guide](docs/reproducibility.md)
-- [Roadmap](docs/ROADMAP.md)
+- [Roadmap](docs/roadmap.md)
 - [Maintainer guide](docs/MAINTAINER_GUIDE.md)
 
 ## Maintainer focus
